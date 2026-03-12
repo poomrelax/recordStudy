@@ -244,7 +244,7 @@ function Forminput() {
     }else{
         const a = document.createElement("a");
         a.href = url;
-        a.target = "_blank";
+        a.download = `บันทึกหลังการจัดการเรียนรู้${Date}`;
         a.click();
         // console.log(ImageActive);
     }
