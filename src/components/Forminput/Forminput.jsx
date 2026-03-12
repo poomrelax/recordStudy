@@ -250,6 +250,7 @@ function Forminput() {
     }
     await axios.post(api.api + "deleterecord", {SessionID: id})
     setLoadding(false);
+    navigation('/')
   }
 
   async function saveData() {
