@@ -16,10 +16,10 @@ const Active = forwardRef(({ data }, ref) => {
         height: "297mm",
         background: "white",
         padding: "40px",
-        fontFamily: "Noto Sans Thai, sans-serif",
+        fontFamily: "var(--font2)",
         fontSize: "14px",
         color: "#000",
-        overflow: 'hidden'
+        overflow: 'hidden',
       }}
     >
       <div style={{alignItems: 'center', display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px'}}>
@@ -28,11 +28,14 @@ const Active = forwardRef(({ data }, ref) => {
         <p>สถานที่พบกลุ่มเรียน {data.Location}</p>
         <p>ชื่อครูผู้สอน {data.Teacher}</p>
       </div>
-      <div style={{display: 'felx', justifyContent: 'center'}}>
-      <div style={{width: '100%', height: '100%', overflow: 'hidden', display: 'grid', gridTemplateRows: 'repeat(4, 1fr)', gridTemplateColumns: 'repeat(2, 1fr)', marginBottom: '40px', gap: '20px'}}>
+      <div style={{display: 'felx', justifyContent: 'center', marginTop: '40px'}}>
+      <div style={{width: '100%', height: '100%', overflow: 'hidden', display: 'grid', gridTemplateRows: 'repeat(3, 1fr)', gridTemplateColumns: 'repeat(2, 1fr)', marginBottom: '40px', gap: '60px'}}>
         {data.ImageActive?.map((item, index) => (
             <>
-                <img src={item} width={280} height={200} style={{objectFit: 'cover'}}/>
+              <div style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center'}}>
+                <img src={item.image} width={340} height={250} style={{objectFit: 'cover'}}/>
+                <p style={{textAlign: 'center', fontFamily: "var(--font3)", fontWeight: '500'}}>{item.text}</p>
+              </div>
             </>
         ))}
       </div>

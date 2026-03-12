@@ -1,3 +1,5 @@
+
+
 .container{
     color: #fff;
     display: flex;
@@ -49,9 +51,29 @@
         color: rgb(255, 255, 255);
     }
 
+    & .buttonAdd{
+        width: #fff;
+        color: #000;
+        font-family: var(--font2);
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+
+
 }
 
-button{
+.container .content .form .form_input ._input .input{
+    display: flex;
+    margin-top: 20px;
+    align-items: end;
+    gap: 5px;
+    /* justify-content: center; */
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.submit{
     padding: 8px 16px;
     width: 100%;
     background: rgb(167, 202, 255);
@@ -63,6 +85,8 @@ button{
     color: rgb(13, 0, 43);
 }
 
+
+
 @media screen and (max-width: 640px) {
 
 
@@ -70,4 +94,16 @@ button{
     font-size: 25px;
     text-align: center;
    }
+
+   .Qrcode .content{
+        flex-direction: column;
+        /* border: 1px solid red; */
+        align-items: center;
+    }
+
+    .Qrcode .content .btn{
+        width: 90%;
+        margin-right: 20px;
+    }
+
 }
