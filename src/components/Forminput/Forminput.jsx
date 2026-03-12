@@ -222,7 +222,7 @@ function Forminput() {
 
     if (htmlRef.current) {
       await document.fonts.ready;
-      const canvas = await html2canvas(htmlRef.current, { scale: 2 });
+      const canvas = await html2canvas(htmlRef.current, { scale: 2, useCORS: true, allowTaint: true });
       const imgDataUrl = canvas.toDataURL("image/png");
       const imgBytes = await fetch(imgDataUrl).then((r) => r.arrayBuffer());
       const image = await pdfDoc.embedPng(imgBytes);

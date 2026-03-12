@@ -33,7 +33,7 @@ const Active = forwardRef(({ data }, ref) => {
         {data.ImageActive?.map((item, index) => (
             <>
               <div style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center'}}>
-                <img src={item.image} width={340} height={250} style={{objectFit: 'cover'}}/>
+                <img crossOrigin="anonymous" src={item.image} width={340} height={250} style={{objectFit: 'cover'}}/>
                 <p style={{textAlign: 'center', fontFamily: "var(--font3)", fontWeight: '500'}}>{item.text}</p>
               </div>
             </>
