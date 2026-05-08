@@ -286,50 +286,61 @@ function Forminput() {
       ImageTime: ImageTime,
       ImageActive: ImageActive,
     };
-
-    await axios.post(api.api + "savedata", data).then((r) => {
-      console.log(r.data);
-      setLoadding(false);
-      alert("✅ บันทึกข้อมูลเสร็จแล้ว ✅");
-    });
+    try {
+        await axios.post(api.api + "savedata", data).then((r) => {
+        console.log(r.data);
+        setLoadding(false);
+        alert("✅ บันทึกข้อมูลเสร็จแล้ว ✅");
+      })
+    }catch (err) {
+        setLoadding(false);
+        alert("ผู้ดูแลระบบยังไม่เปิดเซิร์ฟเวอร์สำหรับสร้างบันทึกหลังการจัดการเรียนรู้ในขณะนี้ กรุณาติดต่อผู้ดูแลระบบเพื่อขอข้อมูลเพิ่มเติม")
+    }
   }
 
   async function start() {
     setLoadding(true);
-    await axios.post(api.api + "create").then((r) => {
-      // console.log(r.data)
+    try {
+      await axios.post(api.api + "create", {}, {
+        timeout: 4000
+      }).then((r) => {
+        // console.log(r.data)
+        setLoadding(false);
+        navigation(`/record/${r.data}/`);
+      });
+      setsharePopup(false)
+      setSemester("")
+      setYear("")
+      setCount("")
+      setSubject("")
+      setHeadSubject("")
+      setTeacher("")
+      setDate("")
+      setSTime("")
+      setKcriteria("")
+      setKpercen("")
+      setKdetail("")
+      setPcriteria("")
+      setPpercen("")
+      setPdetail("")
+      setAcriteria("")
+      setApercen("")
+      setAdetail("")
+      setAllStudent("")
+      setPresent("")
+      setAdsent("")
+      setProblem("")
+      setOffer("")
+      setOfferT("")
+      setOfferC("")
+      setLocation("")
+      setImageTime(null)
+      setImageActive([{ image: "", text: "" }])
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }catch (err) {
       setLoadding(false);
-      navigation(`/record/${r.data}/`);
-    });
-    setsharePopup(false)
-    setSemester("")
-    setYear("")
-    setCount("")
-    setSubject("")
-    setHeadSubject("")
-    setTeacher("")
-    setDate("")
-    setSTime("")
-    setKcriteria("")
-    setKpercen("")
-    setKdetail("")
-    setPcriteria("")
-    setPpercen("")
-    setPdetail("")
-    setAcriteria("")
-    setApercen("")
-    setAdetail("")
-    setAllStudent("")
-    setPresent("")
-    setAdsent("")
-    setProblem("")
-    setOffer("")
-    setOfferT("")
-    setOfferC("")
-    setLocation("")
-    setImageTime(null)
-    setImageActive([{ image: "", text: "" }])
-    window.scrollTo({ top: 0, behavior: "smooth" });
+      alert("ผู้ดูแลระบบยังไม่เปิดเซิร์ฟเวอร์สำหรับสร้างบันทึกหลังการจัดการเรียนรู้ในขณะนี้ กรุณาติดต่อผู้ดูแลระบบเพื่อขอข้อมูลเพิ่มเติม")
+    }
   }
 
   const templateData = {
@@ -344,76 +355,82 @@ function Forminput() {
 
   useEffect(() => {
     const getData = async () => {
-        const data = {
-            SessionID: id
-        }
-        await axios.post(api.api + "data", data).then(r => {
-            console.log(r.data)
-            if(r.data == "on-data"){
+           try{
+              const data = {
+                SessionID: id
+              }
+            await axios.post(api.api + "data", data).then(r => {
+                // console.log(r.data)
+                if(r.data == "on-data"){
+                    setLoadding(false)
+                    setSemester("")
+                    setYear("")
+                    setCount("")
+                    setSubject("")
+                    setHeadSubject("")
+                    setTeacher("")
+                    setDate("")
+                    setSTime("")
+                    setKcriteria("")
+                    setKpercen("")
+                    setKdetail("")
+                    setPcriteria("")
+                    setPpercen("")
+                    setPdetail("")
+                    setAcriteria("")
+                    setApercen("")
+                    setAdetail("")
+                    setAllStudent("")
+                    setPresent("")
+                    setAdsent("")
+                    setProblem("")
+                    setOffer("")
+                    setOfferT("")
+                    setOfferC("")
+                    setLocation("")
+                    setImageTime(null)
+                    setImageActive([{ image: "", text: "" }])
+                    
+                }else if(r.data == "on-record") {
+                    alert("❌ การบันทึกถูกลบไปแล้ว ❌")
+                    navigation("/")
+                    return
+                }else{
                 setLoadding(false)
-                setSemester("")
-                setYear("")
-                setCount("")
-                setSubject("")
-                setHeadSubject("")
-                setTeacher("")
-                setDate("")
-                setSTime("")
-                setKcriteria("")
-                setKpercen("")
-                setKdetail("")
-                setPcriteria("")
-                setPpercen("")
-                setPdetail("")
-                setAcriteria("")
-                setApercen("")
-                setAdetail("")
-                setAllStudent("")
-                setPresent("")
-                setAdsent("")
-                setProblem("")
-                setOffer("")
-                setOfferT("")
-                setOfferC("")
-                setLocation("")
-                setImageTime(null)
-                setImageActive([{ image: "", text: "" }])
-                
-            }else if(r.data == "on-record") {
-                alert("❌ การบันทึกถูกลบไปแล้ว ❌")
-                navigation("/")
-                return
-            }else{
+                setSemester(String(r.data.Semester))
+                setYear(String(r.data.Year))
+                setCount(String(r.data.Count))
+                setSubject(String(r.data.Subject))
+                setHeadSubject(String(r.data.HeadSubject))
+                setTeacher(String(r.data.Teacher))
+                setDate(String(r.data.Date))
+                setSTime(String(r.data.STime))
+                setKcriteria(String(r.data.Kcriteria))
+                setKpercen(String(r.data.Kpercen))
+                setKdetail(String(r.data.Kdetail))
+                setPcriteria(String(r.data.Pcriteria))
+                setPpercen(String(r.data.Ppercen))
+                setPdetail(String(r.data.Pdetail))
+                setAcriteria(String(r.data.Acriteria))
+                setApercen(String(r.data.Apercen))
+                setAdetail(String(r.data.Adetail))
+                setAllStudent(String(r.data.AllStudent))
+                setPresent(String(r.data.Present))
+                setAdsent(String(r.data.Adsent))
+                setProblem(String(r.data.Problem))
+                setOffer(String(r.data.Offer))
+                setOfferT(String(r.data.OfferT))
+                setOfferC(String(r.data.OfferC))
+                setLocation(String(r.data.Location))
+                setImageTime(r.data.ImageTime)
+                setImageActive(r.data.ImageActive)
+            }
+            })
+           }catch(err){
             setLoadding(false)
-            setSemester(String(r.data.Semester))
-            setYear(String(r.data.Year))
-            setCount(String(r.data.Count))
-            setSubject(String(r.data.Subject))
-            setHeadSubject(String(r.data.HeadSubject))
-            setTeacher(String(r.data.Teacher))
-            setDate(String(r.data.Date))
-            setSTime(String(r.data.STime))
-            setKcriteria(String(r.data.Kcriteria))
-            setKpercen(String(r.data.Kpercen))
-            setKdetail(String(r.data.Kdetail))
-            setPcriteria(String(r.data.Pcriteria))
-            setPpercen(String(r.data.Ppercen))
-            setPdetail(String(r.data.Pdetail))
-            setAcriteria(String(r.data.Acriteria))
-            setApercen(String(r.data.Apercen))
-            setAdetail(String(r.data.Adetail))
-            setAllStudent(String(r.data.AllStudent))
-            setPresent(String(r.data.Present))
-            setAdsent(String(r.data.Adsent))
-            setProblem(String(r.data.Problem))
-            setOffer(String(r.data.Offer))
-            setOfferT(String(r.data.OfferT))
-            setOfferC(String(r.data.OfferC))
-            setLocation(String(r.data.Location))
-            setImageTime(r.data.ImageTime)
-            setImageActive(r.data.ImageActive)
-        }
-        })
+            alert("ผู้ดูแลระบบยังไม่เปิดเซิร์ฟเวอร์สำหรับสร้างบันทึกหลังการจัดการเรียนรู้ในขณะนี้ กรุณาติดต่อผู้ดูแลระบบเพื่อขอข้อมูลเพิ่มเติม")
+            navigation("/")
+          }
         }
 
     getData()

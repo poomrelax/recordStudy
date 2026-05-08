@@ -14,11 +14,19 @@ function Home() {
 
     async function start(){
         setLoadding(true)
-        await axios.post(api.api + "create").then(r => {
+        try{
+          await axios.post(api.api + "create", {}, {
+            timeout: 4000
+          })
+            .then(r => {
             // console.log(r.data)
             setLoadding(false)
             navigation(`/record/${r.data}/`)
         })
+        }catch(err){
+          setLoadding(false)
+          alert("ผู้ดูแลระบบยังไม่เปิดเซิร์ฟเวอร์สำหรับสร้างบันทึกหลังการจัดการเรียนรู้ในขณะนี้ กรุณาติดต่อผู้ดูแลระบบเพื่อขอข้อมูลเพิ่มเติม")
+        }
     }
 
   return (
